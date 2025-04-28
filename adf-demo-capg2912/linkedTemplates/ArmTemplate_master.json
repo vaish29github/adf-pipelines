@@ -7,6 +7,26 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-demo-capg2912"
 		},
+		"AdvWorksDb_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AdvWorksDb'"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AdvWorksDb_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "adf-server2912.database.windows.net"
+		},
+		"AdvWorksDb_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "adf-db"
+		},
+		"AdvWorksDb_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vaishnavi"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -33,6 +53,21 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AdvWorksDb_password": {
+						"value": "[parameters('AdvWorksDb_password')]"
+					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"AdvWorksDb_properties_typeProperties_server": {
+						"value": "[parameters('AdvWorksDb_properties_typeProperties_server')]"
+					},
+					"AdvWorksDb_properties_typeProperties_database": {
+						"value": "[parameters('AdvWorksDb_properties_typeProperties_database')]"
+					},
+					"AdvWorksDb_properties_typeProperties_userName": {
+						"value": "[parameters('AdvWorksDb_properties_typeProperties_userName')]"
 					}
 				}
 			},

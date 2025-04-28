@@ -282,7 +282,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "ProductsList",
+						"fileName": "ProductsList.csv",
 						"container": "products"
 					},
 					"columnDelimiter": ",",

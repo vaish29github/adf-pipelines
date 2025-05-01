@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "MoviesDB",
+						"referenceName": "AzureSqlTable",
 						"type": "DatasetReference"
 					},
 					"name": "MoviesDB"
@@ -31,16 +31,26 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          movie as string,",
-				"          title as string,",
-				"          genres as string,",
-				"          year as string,",
-				"          Rating as string,",
-				"          {Rotton Tomato} as string",
+				"          CustomerID as integer,",
+				"          NameStyle as boolean,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          PasswordHash as string,",
+				"          PasswordSalt as string,",
+				"          rowguid as string,",
+				"          ModifiedDate as timestamp",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> MoviesDB",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> MoviesDB",
 				"MoviesDB filter(toInteger(year) >= 1910 && toInteger(year) <= 2000 && rlike(genres, 'Comedy')) ~> FilterYears",
 				"FilterYears aggregate(groupBy(year),",
 				"     AverageComedyRating = avg(toInteger(Rating))) ~> AggregateComedyRating",

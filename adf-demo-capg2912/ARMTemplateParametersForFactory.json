@@ -11,10 +11,10 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
-		"AzureSqlDatabase_password": {
+		"AzureBlobStorage2_connectionString": {
 			"value": ""
 		},
-		"AzureBlobStorage2_connectionString": {
+		"AzureSqlDatabase_password": {
 			"value": ""
 		},
 		"AdvWorksDb_properties_typeProperties_server": {

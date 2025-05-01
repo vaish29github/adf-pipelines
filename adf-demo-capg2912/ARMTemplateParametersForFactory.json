@@ -17,6 +17,9 @@
 		"AzureSqlDatabase_password": {
 			"value": ""
 		},
+		"ProductBlobStorage_connectionString": {
+			"value": ""
+		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"value": "adf-server2912.database.windows.net"
 		},

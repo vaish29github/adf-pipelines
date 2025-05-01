@@ -11,6 +11,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "moviesDB.csv",
+				"folderPath": "output",
 				"fileSystem": "sampledata"
 			},
 			"columnDelimiter": ",",

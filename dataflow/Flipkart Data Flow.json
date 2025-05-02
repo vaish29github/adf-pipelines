@@ -1,0 +1,63 @@
+{
+	"name": "Flipkart Data Flow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dfFlipkart",
+						"type": "DatasetReference"
+					},
+					"name": "FlipkartDataSource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "FlipkartParquetFile",
+						"type": "DatasetReference"
+					},
+					"name": "FlipkartSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FlipkartFilter"
+				},
+				{
+					"name": "derivedColumnFlipkart"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          title as string,",
+				"          Rating as string,",
+				"          maincateg as string,",
+				"          platform as string,",
+				"          actprice1 as string,",
+				"          norating1 as string,",
+				"          noreviews1 as string,",
+				"          star_5f as string,",
+				"          star_4f as string,",
+				"          star_3f as string,",
+				"          star_2f as string,",
+				"          star_1f as string,",
+				"          fulfilled1 as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> FlipkartDataSource",
+				"FlipkartDataSource filter(toInteger(norating1) < 10 || toInteger(noreviews1) < 10) ~> FlipkartFilter",
+				"FlipkartFilter derive(positive_review_ratio = toInteger(star_5f) / toInteger(norating1),",
+				"          total_stars = toInteger(star_1f)*1 + toInteger(star_2f)*2 + toInteger(star_3f)*3 + toInteger(star_4f)*4 + toInteger(star_5f)*5) ~> derivedColumnFlipkart",
+				"derivedColumnFlipkart sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> FlipkartSink"
+			]
+		}
+	}
+}

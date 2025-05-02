@@ -1,0 +1,80 @@
+{
+	"name": "dfFlipkart",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FlipkartBlobSource",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Flipkart.csv",
+				"container": "flipkartdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "title",
+				"type": "String"
+			},
+			{
+				"name": "Rating",
+				"type": "String"
+			},
+			{
+				"name": "maincateg",
+				"type": "String"
+			},
+			{
+				"name": "platform",
+				"type": "String"
+			},
+			{
+				"name": "actprice1",
+				"type": "String"
+			},
+			{
+				"name": "norating1",
+				"type": "String"
+			},
+			{
+				"name": "noreviews1",
+				"type": "String"
+			},
+			{
+				"name": "star_5f",
+				"type": "String"
+			},
+			{
+				"name": "star_4f",
+				"type": "String"
+			},
+			{
+				"name": "star_3f",
+				"type": "String"
+			},
+			{
+				"name": "star_2f",
+				"type": "String"
+			},
+			{
+				"name": "star_1f",
+				"type": "String"
+			},
+			{
+				"name": "fulfilled1",
+				"type": "String"
+			}
+		]
+	}
+}

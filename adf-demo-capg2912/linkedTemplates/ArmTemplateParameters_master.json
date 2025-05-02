@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "adf-demo-capg2912"
 		},
+		"ADLSTripData_accountKey": {
+			"value": ""
+		},
 		"AdvWorksDb_password": {
 			"value": ""
 		},
@@ -22,6 +25,12 @@
 		},
 		"ProductBlobStorage_connectionString": {
 			"value": ""
+		},
+		"TaxiTripDB_password": {
+			"value": ""
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"value": "https://adlstripdata.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"value": "adf-server2912.database.windows.net"
@@ -42,6 +51,15 @@
 			"value": "adf-db"
 		},
 		"AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "vaishnavi"
+		},
+		"TaxiTripDB_properties_typeProperties_server": {
+			"value": "adf-server2912.database.windows.net"
+		},
+		"TaxiTripDB_properties_typeProperties_database": {
+			"value": "taxi-data"
+		},
+		"TaxiTripDB_properties_typeProperties_userName": {
 			"value": "vaishnavi"
 		},
 		"containerUri": {

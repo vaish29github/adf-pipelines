@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-demo-capg2912"
 		},
+		"ADLSTripData_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLSTripData'"
+		},
 		"AdvWorksDb_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AdvWorksDb'"
@@ -30,6 +34,14 @@
 		"ProductBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ProductBlobStorage'"
+		},
+		"TaxiTripDB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'TaxiTripDB'"
+		},
+		"ADLSTripData_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlstripdata.dfs.core.windows.net/"
 		},
 		"AdvWorksDb_properties_typeProperties_server": {
 			"type": "string",
@@ -56,6 +68,18 @@
 			"defaultValue": "adf-db"
 		},
 		"AzureSqlDatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vaishnavi"
+		},
+		"TaxiTripDB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "adf-server2912.database.windows.net"
+		},
+		"TaxiTripDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "taxi-data"
+		},
+		"TaxiTripDB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "vaishnavi"
 		},
@@ -86,6 +110,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ADLSTripData_accountKey": {
+						"value": "[parameters('ADLSTripData_accountKey')]"
+					},
 					"AdvWorksDb_password": {
 						"value": "[parameters('AdvWorksDb_password')]"
 					},
@@ -103,6 +130,12 @@
 					},
 					"ProductBlobStorage_connectionString": {
 						"value": "[parameters('ProductBlobStorage_connectionString')]"
+					},
+					"TaxiTripDB_password": {
+						"value": "[parameters('TaxiTripDB_password')]"
+					},
+					"ADLSTripData_properties_typeProperties_url": {
+						"value": "[parameters('ADLSTripData_properties_typeProperties_url')]"
 					},
 					"AdvWorksDb_properties_typeProperties_server": {
 						"value": "[parameters('AdvWorksDb_properties_typeProperties_server')]"
@@ -124,6 +157,15 @@
 					},
 					"AzureSqlDatabase_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSqlDatabase_properties_typeProperties_userName')]"
+					},
+					"TaxiTripDB_properties_typeProperties_server": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_server')]"
+					},
+					"TaxiTripDB_properties_typeProperties_database": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_database')]"
+					},
+					"TaxiTripDB_properties_typeProperties_userName": {
+						"value": "[parameters('TaxiTripDB_properties_typeProperties_userName')]"
 					}
 				}
 			},

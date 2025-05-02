@@ -1,0 +1,74 @@
+{
+	"name": "dfTripData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TripDataCsv",
+						"type": "DatasetReference"
+					},
+					"name": "TripDataCsv"
+				},
+				{
+					"dataset": {
+						"referenceName": "TripDataTable",
+						"type": "DatasetReference"
+					},
+					"name": "tripFareTable"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "JoinTrip"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          medallion as string,",
+				"          hack_license as string,",
+				"          vendor_id as string,",
+				"          rate_code as short,",
+				"          store_and_fwd_flag as string,",
+				"          pickup_datetime as timestamp,",
+				"          dropoff_datetime as timestamp,",
+				"          passenger_count as short,",
+				"          trip_time_in_secs as short,",
+				"          trip_distance as double,",
+				"          pickup_longitude as double,",
+				"          pickup_latitude as double,",
+				"          dropoff_longitude as double,",
+				"          dropoff_latitude as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> TripDataCsv",
+				"source(output(",
+				"          medallion as string,",
+				"          hack_license as string,",
+				"          vendor_id as string,",
+				"          pickup_datetime as string,",
+				"          payment_type as string,",
+				"          fare_amount as string,",
+				"          surcharge as string,",
+				"          mta_tax as string,",
+				"          tip_amount as string,",
+				"          tolls_amount as string,",
+				"          total_amount as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> tripFareTable",
+				"TripDataCsv, tripFareTable join(TripDataCsv@medallion == tripFareTable@medallion",
+				"     && TripDataCsv@hack_license == tripFareTable@hack_license,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinTrip"
+			]
+		}
+	}
+}

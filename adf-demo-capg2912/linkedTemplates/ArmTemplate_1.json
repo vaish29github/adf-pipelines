@@ -13,32 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/productsCsv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "ProductsList.csv",
-						"container": "products"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/TripAggregateCsv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -61,6 +35,108 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TripDataCsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSTripData",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "TripData.csv",
+						"fileSystem": "tripdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TripDataTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "TaxiTripDB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "medallion",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hack_license",
+						"type": "nvarchar"
+					},
+					{
+						"name": "vendor_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rate_code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "store_and_fwd_flag",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_datetime",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_datetime",
+						"type": "nvarchar"
+					},
+					{
+						"name": "passenger_count",
+						"type": "nvarchar"
+					},
+					{
+						"name": "trip_time_in_secs",
+						"type": "nvarchar"
+					},
+					{
+						"name": "trip_distance",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_longitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "pickup_latitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_longitude",
+						"type": "nvarchar"
+					},
+					{
+						"name": "dropoff_latitude",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "TripFares"
+				}
 			},
 			"dependsOn": []
 		},
@@ -148,23 +224,264 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/FlipkartParquetFile')]",
+			"name": "[concat(parameters('factoryName'), '/productsCsv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "FlipkartBlobSink",
+					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "Parquet",
+				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "FlipkartParquet.parquet",
-						"container": "flipkartdata"
+						"fileName": "ProductsList.csv",
+						"container": "products"
 					},
-					"compressionCodec": "snappy"
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SalesOrderHeaderTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AdvWorksDb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SalesOrderID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "RevisionNumber",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OrderDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "DueDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ShipDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "Status",
+						"type": "tinyint",
+						"precision": 3
+					},
+					{
+						"name": "OnlineOrderFlag",
+						"type": "bit"
+					},
+					{
+						"name": "SalesOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PurchaseOrderNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AccountNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "BillToAddressID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipMethod",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CreditCardApprovalCode",
+						"type": "varchar"
+					},
+					{
+						"name": "SubTotal",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TaxAmt",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Freight",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "TotalDue",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Comment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "SalesOrderHeader"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CustomerTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AdvWorksDb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "CustomerID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "NameStyle",
+						"type": "bit"
+					},
+					{
+						"name": "Title",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FirstName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MiddleName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LastName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Suffix",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CompanyName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesPerson",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EmailAddress",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Phone",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PasswordHash",
+						"type": "varchar"
+					},
+					{
+						"name": "PasswordSalt",
+						"type": "varchar"
+					},
+					{
+						"name": "rowguid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "SalesLT",
+					"table": "Customer"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LookupCsv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LookupBlobStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "lookup"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
 				},
 				"schema": []
 			},
@@ -382,6 +699,74 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Flipkart Data Flow')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "dfFlipkart",
+								"type": "DatasetReference"
+							},
+							"name": "FlipkartDataSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "FlipkartParquetFile",
+								"type": "DatasetReference"
+							},
+							"name": "FlipkartSink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "FlipkartFilter"
+						},
+						{
+							"name": "derivedColumnFlipkart"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          id as string,",
+						"          title as string,",
+						"          Rating as string,",
+						"          maincateg as string,",
+						"          platform as string,",
+						"          actprice1 as string,",
+						"          norating1 as string,",
+						"          noreviews1 as string,",
+						"          star_5f as string,",
+						"          star_4f as string,",
+						"          star_3f as string,",
+						"          star_2f as string,",
+						"          star_1f as string,",
+						"          fulfilled1 as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> FlipkartDataSource",
+						"FlipkartDataSource filter(toInteger(norating1) < 10 || toInteger(noreviews1) < 10) ~> FlipkartFilter",
+						"FlipkartFilter derive(positive_review_ratio = toInteger(star_5f) / toInteger(norating1),",
+						"          total_stars = toInteger(star_1f)*1 + toInteger(star_2f)*2 + toInteger(star_3f)*3 + toInteger(star_4f)*4 + toInteger(star_5f)*5) ~> derivedColumnFlipkart",
+						"derivedColumnFlipkart sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> FlipkartSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/dfFlipkart')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/TransformMovies')]",
@@ -620,11 +1005,13 @@
 				}
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TripDataCsv')]",
+				"[concat(variables('factoryId'), '/datasets/TripDataTable')]",
 				"[concat(variables('factoryId'), '/datasets/TripAggregateCsv')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Flipkart Data Flow')]",
+			"name": "[concat(parameters('factoryName'), '/dfLookup')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -633,63 +1020,172 @@
 					"sources": [
 						{
 							"dataset": {
-								"referenceName": "dfFlipkart",
+								"referenceName": "SalesOrderHeaderTable",
 								"type": "DatasetReference"
 							},
-							"name": "FlipkartDataSource"
+							"name": "SalesOrderStream"
+						},
+						{
+							"dataset": {
+								"referenceName": "CustomerTable",
+								"type": "DatasetReference"
+							},
+							"name": "CustomerStream"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "FlipkartParquetFile",
+								"referenceName": "LookupCsv",
 								"type": "DatasetReference"
 							},
-							"name": "FlipkartSink"
+							"name": "SinkSales"
 						}
 					],
 					"transformations": [
 						{
-							"name": "FlipkartFilter"
+							"name": "lookup1"
 						},
 						{
-							"name": "derivedColumnFlipkart"
+							"name": "SelectColumns"
 						}
 					],
 					"scriptLines": [
 						"source(output(",
-						"          id as string,",
-						"          title as string,",
-						"          Rating as string,",
-						"          maincateg as string,",
-						"          platform as string,",
-						"          actprice1 as string,",
-						"          norating1 as string,",
-						"          noreviews1 as string,",
-						"          star_5f as string,",
-						"          star_4f as string,",
-						"          star_3f as string,",
-						"          star_2f as string,",
-						"          star_1f as string,",
-						"          fulfilled1 as string",
+						"          SalesOrderID as integer,",
+						"          RevisionNumber as integer,",
+						"          OrderDate as timestamp,",
+						"          DueDate as timestamp,",
+						"          ShipDate as timestamp,",
+						"          Status as integer,",
+						"          OnlineOrderFlag as boolean,",
+						"          SalesOrderNumber as string,",
+						"          PurchaseOrderNumber as string,",
+						"          AccountNumber as string,",
+						"          CustomerID as integer,",
+						"          ShipToAddressID as integer,",
+						"          BillToAddressID as integer,",
+						"          ShipMethod as string,",
+						"          CreditCardApprovalCode as string,",
+						"          SubTotal as decimal(19,4),",
+						"          TaxAmt as decimal(19,4),",
+						"          Freight as decimal(19,4),",
+						"          TotalDue as decimal(19,4),",
+						"          Comment as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> FlipkartDataSource",
-						"FlipkartDataSource filter(toInteger(norating1) < 10 || toInteger(noreviews1) < 10) ~> FlipkartFilter",
-						"FlipkartFilter derive(positive_review_ratio = toInteger(star_5f) / toInteger(norating1),",
-						"          total_stars = toInteger(star_1f)*1 + toInteger(star_2f)*2 + toInteger(star_3f)*3 + toInteger(star_4f)*4 + toInteger(star_5f)*5) ~> derivedColumnFlipkart",
-						"derivedColumnFlipkart sink(allowSchemaDrift: true,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> SalesOrderStream",
+						"source(output(",
+						"          CustomerID as integer,",
+						"          NameStyle as boolean,",
+						"          Title as string,",
+						"          FirstName as string,",
+						"          MiddleName as string,",
+						"          LastName as string,",
+						"          Suffix as string,",
+						"          CompanyName as string,",
+						"          SalesPerson as string,",
+						"          EmailAddress as string,",
+						"          Phone as string,",
+						"          PasswordHash as string,",
+						"          PasswordSalt as string,",
+						"          rowguid as string,",
+						"          ModifiedDate as timestamp",
+						"     ),",
+						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     format: 'parquet',",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> CustomerStream",
+						"SalesOrderStream, CustomerStream lookup(SalesOrderStream@CustomerID == CustomerStream@CustomerID,",
+						"     multiple: false,",
+						"     pickup: 'any',",
+						"     broadcast: 'auto')~> lookup1",
+						"lookup1 select(mapColumn(",
+						"          SalesOrderID,",
+						"          OrderDate,",
+						"          Status,",
+						"          SalesOrderNumber,",
+						"          PurchaseOrderNumber,",
+						"          AccountNumber,",
+						"          CustomerID = SalesOrderStream@CustomerID,",
+						"          SubTotal,",
+						"          TaxAmt,",
+						"          Freight,",
+						"          TotalDue,",
+						"          CustomerID = CustomerStream@CustomerID,",
+						"          NameStyle,",
+						"          Title,",
+						"          FirstName,",
+						"          MiddleName,",
+						"          LastName,",
+						"          CompanyName,",
+						"          SalesPerson,",
+						"          EmailAddress,",
+						"          Phone",
+						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> FlipkartSink"
+						"     skipDuplicateMapOutputs: true) ~> SelectColumns",
+						"SelectColumns sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SinkSales"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/dfFlipkart')]",
-				"[concat(variables('factoryId'), '/datasets/FlipkartParquetFile')]"
+				"[concat(variables('factoryId'), '/datasets/SalesOrderHeaderTable')]",
+				"[concat(variables('factoryId'), '/datasets/CustomerTable')]",
+				"[concat(variables('factoryId'), '/datasets/LookupCsv')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/2May25 Flipkart PL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Flipkart Data Flow",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Flipkart Data Flow",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"FlipkartDataSource": {},
+									"FlipkartSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/Flipkart Data Flow')]"
 			]
 		},
 		{
@@ -797,6 +1293,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/TripDataTable')]",
+				"[concat(variables('factoryId'), '/datasets/TripDataCsv')]",
 				"[concat(variables('factoryId'), '/dataflows/dfTripData')]"
 			]
 		},
@@ -950,52 +1448,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dfProductsMarkup')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/2May25 Flipkart PL')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Flipkart Data Flow",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "Flipkart Data Flow",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"FlipkartDataSource": {},
-									"FlipkartSink": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/Flipkart Data Flow')]"
 			]
 		}
 	]

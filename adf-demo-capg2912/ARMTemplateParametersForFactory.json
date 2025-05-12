@@ -23,6 +23,12 @@
 		"AzureSqlDatabase_password": {
 			"value": ""
 		},
+		"FlipkartBlobSink_connectionString": {
+			"value": ""
+		},
+		"FlipkartBlobSource_connectionString": {
+			"value": ""
+		},
 		"ProductBlobStorage_connectionString": {
 			"value": ""
 		},
@@ -32,10 +38,7 @@
 		"TripAggregateBlob_connectionString": {
 			"value": ""
 		},
-		"FlipkartBlobSource_connectionString": {
-			"value": ""
-		},
-		"FlipkartBlobSink_connectionString": {
+		"LookupBlobStorage_connectionString": {
 			"value": ""
 		},
 		"ADLSTripData_properties_typeProperties_url": {

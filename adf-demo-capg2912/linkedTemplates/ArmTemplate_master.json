@@ -31,6 +31,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase'"
 		},
+		"FlipkartBlobSink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'FlipkartBlobSink'"
+		},
+		"FlipkartBlobSource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'FlipkartBlobSource'"
+		},
 		"ProductBlobStorage_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ProductBlobStorage'"
@@ -43,13 +51,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'TripAggregateBlob'"
 		},
-		"FlipkartBlobSource_connectionString": {
+		"LookupBlobStorage_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'FlipkartBlobSource'"
-		},
-		"FlipkartBlobSink_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'FlipkartBlobSink'"
+			"metadata": "Secure string for 'connectionString' of 'LookupBlobStorage'"
 		},
 		"ADLSTripData_properties_typeProperties_url": {
 			"type": "string",
@@ -140,6 +144,12 @@
 					"AzureSqlDatabase_password": {
 						"value": "[parameters('AzureSqlDatabase_password')]"
 					},
+					"FlipkartBlobSink_connectionString": {
+						"value": "[parameters('FlipkartBlobSink_connectionString')]"
+					},
+					"FlipkartBlobSource_connectionString": {
+						"value": "[parameters('FlipkartBlobSource_connectionString')]"
+					},
 					"ProductBlobStorage_connectionString": {
 						"value": "[parameters('ProductBlobStorage_connectionString')]"
 					},
@@ -149,11 +159,8 @@
 					"TripAggregateBlob_connectionString": {
 						"value": "[parameters('TripAggregateBlob_connectionString')]"
 					},
-					"FlipkartBlobSource_connectionString": {
-						"value": "[parameters('FlipkartBlobSource_connectionString')]"
-					},
-					"FlipkartBlobSink_connectionString": {
-						"value": "[parameters('FlipkartBlobSink_connectionString')]"
+					"LookupBlobStorage_connectionString": {
+						"value": "[parameters('LookupBlobStorage_connectionString')]"
 					},
 					"ADLSTripData_properties_typeProperties_url": {
 						"value": "[parameters('ADLSTripData_properties_typeProperties_url')]"
@@ -210,6 +217,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'adf-demo-capg2912_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adf-demo-capg2912_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adf-demo-capg2912_ArmTemplate_1')]"
 			]
 		}
 	]
